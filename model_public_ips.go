@@ -10,5 +10,5 @@ package swagger
 
 type PublicIps struct {
 	InternalIp string `json:"internalIp,omitempty"`
-	NetworkConfig *PublicIpsNetworkConfig `json:"networkConfig,omitempty"`
+	NetworkConfig []PublicIpsNetworkConfig `json:"networkConfig,omitempty"`
 }

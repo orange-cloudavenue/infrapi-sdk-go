@@ -13,6 +13,6 @@ type Tier0Details struct {
 	Tier0Vrf string `json:"tier0_vrf,omitempty"`
 	// Tier0 provider infos
 	Tier0Provider string `json:"tier0_provider,omitempty"`
-	ClassService *[]TagVrf `json:"class_service,omitempty"`
-	Segments *[]Segment `json:"segments,omitempty"`
+	ClassService *TagVrf `json:"class_service,omitempty"`
+	Services *[]Segment `json:"services,omitempty"`
 }

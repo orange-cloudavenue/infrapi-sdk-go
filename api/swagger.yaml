@@ -1845,10 +1845,15 @@ components:
           type: string
           example: 10.10.10.0/30
         networkConfig:
-          $ref: '#/components/schemas/publicIps_networkConfig'
+          type: array
+          items:
+            $ref: '#/components/schemas/publicIps_networkConfig'
       example:
         networkConfig:
-          uplinkIp: 196.26.50.90
+        - uplinkIp: 196.26.50.90
+          edgeGatewayName: edgeGatewayName
+          translatedIp: 10.10.10.0/30
+        - uplinkIp: 196.26.50.90
           edgeGatewayName: edgeGatewayName
           translatedIp: 10.10.10.0/30
         internalIp: 10.10.10.0/30
@@ -2608,6 +2613,8 @@ components:
       description: Segments list of the Tier0-VRF
       example:
       - service: OBJECT_STORAGE
+      - service: INTERNET
+      - service: ADMIN
       items:
         $ref: '#/components/schemas/segment'
       x-schema-name: segments
@@ -2620,13 +2627,7 @@ components:
       - VRF_DEDICATED_MEDIUM
       - VRF_DEDICATED_LARGE
     class_service:
-      type: array
-      description: List of tag of the Tier0 VRF
-      example:
-      - VRF_STANDARD
-      items:
-        $ref: '#/components/schemas/tagVRF'
-      x-schema-name: class_service
+      $ref: '#/components/schemas/tagVRF'
     tier0Details:
       type: object
       properties:
@@ -2638,16 +2639,17 @@ components:
           example: pr01e02t0sp01
         class_service:
           $ref: '#/components/schemas/class_service'
-        segments:
+        services:
           $ref: '#/components/schemas/segments'
       description: Details of Tier-0 VRF of the organisation
       example:
         tier0_vrf: prvrf01iocb1105414allsp02
-        class_service:
-        - VRF_STANDARD
+        class_service: VRF_STANDARD
         tier0_provider: pr01e02t0sp01
-        segments:
+        services:
         - service: OBJECT_STORAGE
+        - service: INTERNET
+        - service: ADMIN
     publicIps_networkConfig:
       required:
       - translatedIp
