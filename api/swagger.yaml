@@ -1,0 +1,2884 @@
+openapi: 3.0.0
+info:
+  title: Cloud Avenue API
+  description: |
+    Cloud Avenue API allows you to create some ressources on vCloud Director.
+    ## Authentication
+    In order to authenticate to this API, you must first authenticate through vCloudDirector API using
+    **POST https://{{api_host}}/cloudapi/1.0.0/sessions**. Then use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from
+    response header in your request.
+
+    If you need more information do not hesitate to read our dedicated
+    page on [our Wiki](https://wiki.cloudavenue.orange-business.com/w/index.php/API_Cloud_Avenue)
+  version: 2.0.0
+servers:
+- url: https://console1.cloudavenue.orange-business.com
+- url: https://console2.cloudavenue.orange-business.com
+security:
+- vCloudDirector: []
+- X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+tags:
+- name: Authentication
+  description: Authentication method
+paths:
+  /cloudapi/1.0.0/sessions:
+    post:
+      tags:
+      - Authentication
+      summary: Login to your organization
+      description: |
+        This login method is available thanks to vCD API.
+        Login must be like username@organization (example : r.dupont@cav01ev01ocb0000000).
+        Once logged in, use use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from
+        response header and add it in X-VMWARE-VCLOUD-ACCESS-TOKEN security parameter.
+      parameters: []
+      responses:
+        "200":
+          description: Logged in successfully
+          headers:
+            X-VMWARE-VCLOUD-ACCESS-TOKEN:
+              description: JWT token to use with other requests
+              style: simple
+              explode: false
+              schema:
+                type: string
+          content:
+            application/json;version=35.2:
+              schema:
+                type: string
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - vCloudDirector: []
+      x-compatibility:
+      - NGP_API_FOR_CUSTOMER
+      - NUP_API_FOR_CUSTOMER
+  /api/customers/v1.0/federate:
+    get:
+      tags:
+      - Users
+      summary: Return federation status of an organization
+      parameters: []
+      responses:
+        "200":
+          description: Successful response with the federation status of an organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/federation-status-type'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP_API_FOR_CUSTOMER
+      - NGP_API_FOR_CUSTOMER
+    put:
+      tags:
+      - Users
+      summary: Regenerate SAML certificate
+      description: Regenerate SAML certificate of an organization and updates the
+        LemonLDAP entry with the new certificate.
+      parameters: []
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP_API_FOR_CUSTOMER
+      - NGP_API_FOR_CUSTOMER
+    post:
+      tags:
+      - Users
+      summary: Federate an existing organization
+      description: Federate an existing organization
+      parameters: []
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP_API_FOR_CUSTOMER
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v1.0/ip:
+    post:
+      tags:
+      - Public IP
+      summary: Request and configure a new public IP address
+      parameters:
+      - name: X-Natted-IP
+        in: header
+        description: "Target IP to configure NAT. If not provided, it configure [Double\
+          \ NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT)\
+          \ with a new IP on INET VDC Edge. If the IP or IP range provided is in 100.64.102.1-100.64.102.253\
+          \ [Double NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT)\
+          \ is configured. If the IP is a private IP [Direct NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#NAT_Direct)\
+          \ is configured."
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: X-VDC-Edge-Name
+        in: header
+        description: Public IP is natted toward the specified VDC Edge. This parameter
+          overrides X-VDC-Name.
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: X-VDC-Name
+        in: header
+        description: Public IP is natted toward the INET VDC Edge in the specified
+          VDC Name. This parameter helps to find target VDC Edge in case of multiples
+          INET VDC Edges with same names.
+        required: false
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP
+      - NUP_API_FOR_CUSTOMER
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/ip:
+    get:
+      tags:
+      - Public IP
+      summary: Get Organization's public IP addresses
+      parameters: []
+      responses:
+        "200":
+          description: List of public IPs
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/publicIps'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP
+      - NUP_API_FOR_CUSTOMER
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v1.0/ip/{public-ip}:
+    delete:
+      tags:
+      - Public IP
+      summary: Remove all configuration related to a public IP address and free IP
+      parameters:
+      - name: public-ip
+        in: path
+        description: Public IP address to free
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: ip
+      responses:
+        "200":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP
+      - NUP_API_FOR_CUSTOMER
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v1.0/jobs/{Job-Id}:
+    get:
+      tags:
+      - Jobs
+      summary: Returns a job status by ID.
+      parameters:
+      - name: Job-Id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: uuid
+        example: 8fe586e1-405e-4e7c-9a9a-bcebe9062659
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/parentJob'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NUP
+      - NUP_API_FOR_CUSTOMER
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vcda/ips:
+    get:
+      tags:
+      - VCDA
+      summary: Get on premise IP addresses
+      description: Get list of on premise IP addresses allowed for this organization's
+        draas offer
+      parameters: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vcda/ips/{Ip-Address}:
+    post:
+      tags:
+      - VCDA
+      summary: Add on premise IP address
+      description: Allow a new on premise IP address for this organization's draas
+        offer
+      parameters:
+      - name: Ip-Address
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/ipAddress'
+      responses:
+        "204":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                type: string
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+    delete:
+      tags:
+      - VCDA
+      summary: Remove on premise IP address
+      description: Remove an existing on premise IP address from this organization's
+        draas offer
+      parameters:
+      - name: Ip-Address
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/ipAddress'
+      responses:
+        "204":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                type: string
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vdcs/{vdc-name}/edges:
+    post:
+      tags:
+      - Edge Gateways
+      summary: Create one Edge gateway
+      description: "When creating an Edge Gateway attached to a vDC, this vDC will\
+        \ be isolated."
+      parameters:
+      - name: vdc-name
+        in: path
+        description: VDC name.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: VDC01
+      requestBody:
+        description: Edge Gateway creation body
+        content:
+          application/json;version=35.2:
+            schema:
+              $ref: '#/components/schemas/edgeGatewayCreate'
+        required: true
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vdc-groups/{vdc-group-name}/edges:
+    post:
+      tags:
+      - Edge Gateways
+      summary: Create one Edge gateway in vDC group
+      description: "When creating an Edge Gateway attached to a vDC group, this Edge\
+        \ Gateway will be shared with other vDC inside the same vDC group"
+      parameters:
+      - name: vdc-group-name
+        in: path
+        description: VDC Group name.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: myvDCGroup
+      requestBody:
+        description: Edge Gateway creation body
+        content:
+          application/json;version=35.2:
+            schema:
+              $ref: '#/components/schemas/edgeGatewayCreate'
+        required: true
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/edges:
+    get:
+      tags:
+      - Edge Gateways
+      summary: List edge gateway of an organization
+      parameters: []
+      responses:
+        "200":
+          description: List of Edge gateways.
+          content:
+            application/json;version=35.2:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/edgeGateway'
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/edges/{edge-id}:
+    get:
+      tags:
+      - Edge Gateways
+      summary: Get Edge gateway details
+      parameters:
+      - name: edge-id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: cc1f35c2-90a2-48d1-9359-62794faf44ad
+      responses:
+        "200":
+          description: Edge gateway details.
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/edgeGateway'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+    delete:
+      tags:
+      - Edge Gateways
+      summary: Remove Edge Gateway
+      parameters:
+      - name: edge-id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: cc1f35c2-90a2-48d1-9359-62794faf44ad
+      responses:
+        "202":
+          description: Edge gateway deleted.
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                type: string
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/edges/{edge-id}/networks:
+    get:
+      tags:
+      - Edge Gateways
+      summary: Get edge gateway network configuration
+      description: Retrieve the configuration of edge gateway network
+      parameters:
+      - name: edge-id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: cc1f35c2-90a2-48d1-9359-62794faf44ad
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/edgeGatewayNetworks'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/tier-0-vrfs:
+    get:
+      tags:
+      - Tier-0
+      summary: Get all Tier-0 Gateway
+      description: Get all Tier-0 gateway.
+      parameters: []
+      responses:
+        "200":
+          description: List of Tier-0
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/tier0List'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/tier-0-vrfs/{tier0_name}:
+    get:
+      tags:
+      - Tier-0
+      summary: Get Tier-0 Details
+      description: Get Tier-0 details.
+      parameters:
+      - name: tier0_name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/tier0Name'
+      responses:
+        "200":
+          description: Details of Tier-0
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/tier0Details'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vdcs/batch:
+    post:
+      tags:
+      - vDC
+      summary: Create multiple Org VDC
+      parameters: []
+      requestBody:
+        description: |
+          Tenant technical details.
+          Use vDC schema to create 'One Room vDC', 'Dual Room 1vDC' or 'High Availability Dual Room vDC'
+          Use DualRoom2vDC to create Dual Room 2vDC
+        content:
+          application/json;version=35.2:
+            schema:
+              type: array
+              items:
+                oneOf:
+                - $ref: '#/components/schemas/createOrgVdcV2'
+                - $ref: '#/components/schemas/createOrg2Vdcs'
+        required: true
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vdcs:
+    get:
+      tags:
+      - vDC
+      summary: List Org vDCs
+      description: List all VDC inside an Organization
+      parameters: []
+      responses:
+        "200":
+          description: VDC Name list
+          content:
+            application/json;version=35.2:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/vDCList'
+                x-content-type: application/json;version=35.2
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+    post:
+      tags:
+      - vDC
+      summary: Create a new Org VDC
+      parameters: []
+      requestBody:
+        description: Tenant technical details
+        content:
+          application/json;version=35.2:
+            schema:
+              $ref: '#/components/schemas/createOrgVdcV2'
+        required: true
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/vdcs/{vdc-name}:
+    get:
+      tags:
+      - vDC
+      summary: Get details about one vDC
+      parameters:
+      - name: vdc-name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/vdcName'
+      responses:
+        "200":
+          description: vDC details
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/GetOrgVdcs2'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+    put:
+      tags:
+      - vDC
+      summary: Update a vDC
+      parameters:
+      - name: vdc-name
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          $ref: '#/components/schemas/vdcName'
+      requestBody:
+        description: shaping details
+        content:
+          application/json;version=35.2:
+            schema:
+              $ref: '#/components/schemas/UpdateOrgVdcV2'
+        required: true
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+      x-api-for-customer: true
+    delete:
+      tags:
+      - vDC
+      summary: Delete a vDC
+      description: "Delete an empty vDC, will return an error if the vDC has Edges\
+        \ or vApps (must remove before)"
+      parameters:
+      - name: vdc-name
+        in: path
+        description: VDC name.
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: VDC01
+      responses:
+        "201":
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
+        "400":
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "401":
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "403":
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "404":
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "406":
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "409":
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+components:
+  schemas:
+    customerInformation:
+      required:
+      - bssServiceId
+      - customerName
+      - customerType
+      properties:
+        bssServiceId:
+          type: string
+          example: OCB1234567
+        customerName:
+          type: string
+          example: Example Name
+        customerType:
+          $ref: '#/components/schemas/customerType'
+    publicIps:
+      required:
+      - uplinkIp
+      properties:
+        internalIp:
+          type: string
+          example: 10.10.10.0/30
+        networkConfig:
+          $ref: '#/components/schemas/publicIps_networkConfig'
+      example:
+        networkConfig:
+          uplinkIp: 196.26.50.90
+          edgeGatewayName: edgeGatewayName
+          translatedIp: 10.10.10.0/30
+        internalIp: 10.10.10.0/30
+    customerType:
+      type: string
+      example: NGP_EXTERNAL
+      enum:
+      - internal
+      - external
+      - NGP_INTERNAL
+      - NGP_OFR
+      - NGP_EXTERNAL
+      - NGP_VDI
+      - NGP_B2GAAS
+      - NGP_B2G3MI
+      - NGP_MCC
+    identityProvider:
+      type: string
+      example: siu
+      enum:
+      - local
+      - siu
+      - guardian
+    siteCode:
+      type: string
+      description: Site where the resource is located
+      example: VDR
+      enum:
+      - VDR
+      - RM
+      - FR4
+      - CHA
+      - SIN
+      - MUM
+      - ATL
+    pesg:
+      required:
+      - type
+      type: object
+      properties:
+        id:
+          type: string
+          description: internal object identifier
+          example: 33445-332323-32323
+        name:
+          type: string
+          description: This action implies the creation of a Logical Switch and an
+            External Network.
+          example: ABCDE_PESG_INET_S1
+        type:
+          type: string
+          description: "For external customers `ADMIN`, `INET`. <br/> For internal\
+            \ customers `PFS`, `RBCI`, `EIN`, `EXPL`, `ST`, `GINIS`, `GINEFA`, `GINCMZ`,\
+            \ `NFS`, `BACKUP`."
+          example: INET
+          enum:
+          - ADMIN
+          - INET
+          - PFS
+          - RBCI
+          - EIN
+          - EXPL
+          - ST
+          - GINIS
+          - GINEFA
+          - GINCMZ
+          - NFS
+          - BACKUP
+        intercoIp:
+          type: string
+          description: Contains public-ip in case of INET PESG and the associated
+            network mask
+          example: 100.64.55.14/28
+        vlanId:
+          type: integer
+          description: Only and required for NFS PESG
+          example: 11
+        internalIp:
+          type: string
+          description: Internal Ip connected with associated network mmask (will be
+            the one belonging to the external network of the organization)
+          example: 100.64.102.254/24
+        networkConfig:
+          $ref: '#/components/schemas/networkConfig'
+    networkConfig:
+      type: array
+      items:
+        $ref: '#/components/schemas/networkConfig_inner'
+      x-schema-name: networkConfig
+    edges:
+      type: array
+      description: list of provider edges.
+      items:
+        $ref: '#/components/schemas/pesg'
+    orgUsers:
+      type: array
+      items:
+        $ref: '#/components/schemas/orgUser'
+    orgUser:
+      required:
+      - login
+      - providerId
+      - providerType
+      type: object
+      properties:
+        login:
+          type: string
+          description: User login in vCloud Director
+          example: CVNN4456
+        providerId:
+          type: string
+          description: User identifier provided by the Identify Provider. ie. local
+            => uuid; siu => siu-id
+        providerType:
+          type: string
+          example: local
+          enum:
+          - local
+          - siu
+          - guardian
+        role:
+          type: string
+          default: Organization Administrator
+          enum:
+          - Organization Administrator
+          - Catalog Author
+          - vApp Author
+          - vApp User
+          - Console Access Only
+        emailAddress:
+          type: string
+          example: noreply@orange.com
+          default: ""
+        fullName:
+          type: string
+          example: ""
+          default: ""
+        isEnabled:
+          type: boolean
+          example: true
+          default: true
+        telephone:
+          type: string
+          example: ""
+          default: ""
+    orgUserRecord:
+      type: object
+      properties:
+        login:
+          type: string
+          description: User login in vCloud Director
+          example: CVNN4456
+        providerType:
+          type: string
+          example: local
+          enum:
+          - local
+          - siu
+          - guardian
+        fullName:
+          type: string
+          example: Full Name
+          default: ""
+        isEnabled:
+          type: boolean
+          example: true
+          default: true
+    storages:
+      type: array
+      items:
+        $ref: '#/components/schemas/storages_inner'
+    orgVdcs:
+      type: array
+      items:
+        $ref: '#/components/schemas/orgVdcs_inner'
+    storageProfile:
+      required:
+      - limit
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+          description: "VMware unique ID. There is no ID in the body of the POST request,\
+            \ as VMware which generates it. This ID must be present for GET and PUT."
+          example: a90baf04-7464-4631-98af-cd86077feb13
+        name:
+          type: string
+          enum:
+          - SILVER
+          - GOLD
+          - PLATINUM_3K
+          - PLATINUM_5K
+          - PLATINUM_10K
+        limit:
+          maximum: 7500
+          minimum: 500
+          type: integer
+          description: Max number of units allocated for this storage profile. In
+            Gb
+          example: 5000
+          default: 2000
+        used:
+          minimum: 0
+          type: integer
+          description: Current usage of this StorageProfile in Gb. Deletion is allowed
+            only if there is no usage of the StorageProfile
+          example: 5000
+        default:
+          type: boolean
+          example: true
+          enum:
+          - true
+          - false
+    vdcStorageProfiles:
+      type: array
+      description: List of provider vdc storage profiles to add to this vdc.
+      items:
+        $ref: '#/components/schemas/storageProfile'
+      x-schema-name: vdcStorageProfiles
+    action:
+      required:
+      - details
+      - name
+      - status
+      type: object
+      properties:
+        name:
+          type: string
+          enum:
+          - CREATE_VORG
+          - DELETE_VORG
+          - MODIFY_VDC_RESOURCES
+          - CREATE_VDC
+        status:
+          type: string
+          enum:
+          - CREATED
+          - PENDING
+          - IN_PROGRESS
+          - FAILED
+          - DONE
+        details:
+          type: string
+          description: Human-readable action description
+      example:
+        name: CREATE_VORG
+        details: details
+        status: CREATED
+    parentJob_metadata:
+      required:
+      - description
+      - name
+      - status
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/action'
+        description:
+          type: string
+          description: parent job containing a list of actions
+        name:
+          type: string
+          description: parent_job
+        status:
+          type: string
+          enum:
+          - CREATED
+          - PENDING
+          - IN_PROGRESS
+          - FAILED
+          - DONE
+      example:
+        name: name
+        description: description
+        actions:
+        - name: CREATE_VORG
+          details: details
+          status: CREATED
+        - name: CREATE_VORG
+          details: details
+          status: CREATED
+        status: CREATED
+    parentJob:
+      type: array
+      items:
+        $ref: '#/components/schemas/parentJob_metadata'
+      x-schema-name: parentJob
+    metadata:
+      required:
+      - key
+      - scope
+      - value
+      type: object
+      properties:
+        key:
+          type: string
+          example: BSS-Contract-Id
+        value:
+          type: string
+          example: 12-6124343
+        scope:
+          type: string
+          default: hidden
+          enum:
+          - rw
+          - ro
+          - hidden
+    vCDPlugin:
+      required:
+      - pluginName
+      - version
+      type: object
+      properties:
+        pluginName:
+          type: string
+          example: NSS
+        version:
+          type: string
+          example: "0.9"
+    federation-status-type:
+      type: string
+      enum:
+      - local
+      - siu
+    jobcreated:
+      properties:
+        message:
+          type: string
+          example: Job successfully created
+        jobId:
+          type: string
+          example: 16f61fe1-481c-4ec1-b62d-046af22b51ad
+      example:
+        jobId: 16f61fe1-481c-4ec1-b62d-046af22b51ad
+        message: Job successfully created
+    apiError:
+      required:
+      - code
+      - message
+      - reason
+      type: object
+      properties:
+        code:
+          type: string
+          example: err-0002
+        reason:
+          type: string
+          example: auth-0001
+        message:
+          type: string
+          example: The request you are trying to make does not have sufficient permissions
+    ipAddress:
+      pattern: "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+      type: string
+      description: IPv4 Ip Address
+    serviceType:
+      type: string
+      description: Service Type
+      example: all
+      enum:
+      - all
+      - ein
+      - eic
+    tier0VRFClassOfService:
+      type: string
+      description: Class of service wanted on Tier-0 VRF Gateway
+      example: SHARED_STANDARD
+      enum:
+      - SHARED_STANDARD
+      - SHARED_PREMIUM
+      - DEDICATED_MEDIUM
+      - DEDICATED_LARGE
+    edgeGatewayCreate:
+      required:
+      - tier0VrfId
+      type: object
+      properties:
+        tier0VrfId:
+          type: string
+          description: Identifier of Tier-0 VRF to connect the Edge Gateway
+          example: prvrf01iocb0000001allsp01
+        enableLoadBalancing:
+          type: boolean
+          description: Enable the Load Balancing NSX AVI Feature
+          example: false
+          default: true
+      description: Edge Gateway (NSX-T Tier-1 Gateway)
+    vdcGroup:
+      title: vDC Group
+      type: string
+      description: Name of an existing vDC group or a new one. This allows you to
+        isolate your vDC. VMs of vDCs which belong to the same vDC group can communicate
+        together.
+      example: myvDCGroup
+    organizationNameV2:
+      type: string
+      description: Organization name
+      example: cav01iv02ocb0005676
+    tier0Name:
+      type: string
+      description: Tier0-VRF name
+      example: prvrf01iocb1105414allsp02
+    vdcName:
+      type: string
+      description: Virtual Datacenter Name
+      example: myvdc
+    vdcEdges:
+      type: array
+      description: List of provider edges.
+      items:
+        $ref: '#/components/schemas/vdcEdge'
+      x-schema-name: vdcEdges
+    vdcEdge:
+      required:
+      - highAvailability
+      - name
+      - type
+      - uuid
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1e23:3432:ab32:1223
+        name:
+          type: string
+          example: vDCName_vCDESG_PFS_S1_01
+        type:
+          type: string
+          description: "For external customers `ADMIN`, `INET`, `BVPN`, `CROSSCONNECT`.\
+            \ <br/> For internal customers `PFS`, `RBCI`, `EIN`, `EXPL`, `ST`, `GINIS`,\
+            \ `GINEFA`, `GINCMZ`, `NFS`, `BACKUP`."
+          example: INET
+          enum:
+          - ADMIN
+          - INET
+          - BVPN
+          - CROSSCONNECT
+          - RBCI
+          - PFS
+          - EIN
+          - EXPL
+          - ST
+          - GINIS
+          - GINEFA
+          - GINCMZ
+          - NFS
+          - BACKUP
+        highAvailability:
+          type: boolean
+          default: true
+    vdcStorageProfilesV2:
+      required:
+      - class
+      - default
+      - limit
+      type: object
+      properties:
+        class:
+          type: string
+          default: gold
+          enum:
+          - silver
+          - silver_r1
+          - silver_r2
+          - gold
+          - gold_r1
+          - gold_r2
+          - gold_hm
+          - platinum3k
+          - platinum3k_r1
+          - platinum3k_r2
+          - platinum3k_hm
+          - platinum7k
+          - platinum7k_r1
+          - platinum7k_r2
+          - platinum7k_hm
+        limit:
+          maximum: 10000
+          minimum: 500
+          type: integer
+          description: Max number of units allocated for this storage profile. In
+            Gb
+          example: 500
+          default: 500
+        default:
+          type: boolean
+          description: True if the storage Profile is the default one. Only one default
+            per vdc is allowed.
+          example: true
+      description: Storage policies description
+      example:
+        default: true
+        limit: 500
+        class: gold
+    orgVdcV2:
+      required:
+      - cpuAllocated
+      - memoryAllocated
+      - name
+      - vcpuInMhz2
+      - vdcBillingModel
+      - vdcDisponibilityClass
+      - vdcServiceClass
+      - vdcStorageBillingModel
+      - vdcStorageProfiles
+      type: object
+      properties:
+        name:
+          maxLength: 27
+          minLength: 2
+          pattern: "^\\w{2,27}$"
+          type: string
+          description: Name of the new org vdc.
+          example: VDC_ECO_1
+        description:
+          type: string
+          description: Description of the new org vdc.
+          example: Additionnal VDC for benchmarks
+        vdcServiceClass:
+          type: string
+          example: ECO
+          enum:
+          - ECO
+          - STD
+          - HP
+          - VOIP
+        vdcDisponibilityClass:
+          type: string
+          example: ONE-ROOM
+          enum:
+          - ONE-ROOM
+          - DUAL-ROOM
+          - HA-DUAL-ROOM
+        vdcBillingModel:
+          type: string
+          description: Choose Billing model of compute resources.
+          enum:
+          - PAYG
+          - DRAAS
+          - RESERVED
+        vcpuInMhz2:
+          minimum: 1200
+          type: number
+          description: "Specifies the clock frequency, in Mhz, for any virtual CPU\
+            \ that is allocated to a VM."
+          example: 2200
+          default: 2200
+        cpuAllocated:
+          maximum: 2500000
+          minimum: 5
+          type: number
+          description: Capacity that is committed to be available or used as a limit
+            in PAYG mode. Unit for compute capacity allocated to this vdc is MHz.
+            Note. Reserved capacity is automatically set according to the service
+            class.
+          example: 11000
+        memoryAllocated:
+          maximum: 5000
+          minimum: 1
+          type: number
+          description: Memory capacity that is committed to be available or used as
+            a limit in PAYG mode. Unit for memory capacity allocated to this vdc is
+            Gb.
+          example: 4
+        vdcStorageBillingModel:
+          title: Storage billing model
+          type: string
+          description: Available for all vdcServiceClass.
+          enum:
+          - PAYG
+          - RESERVED
+        vdcStorageProfiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/vdcStorageProfilesV2'
+      example:
+        memoryAllocated: 4
+        vdcBillingModel: PAYG
+        vdcStorageProfiles:
+        - default: true
+          limit: 500
+          class: gold
+        - default: true
+          limit: 500
+          class: gold
+        cpuAllocated: 11000
+        vdcDisponibilityClass: ONE-ROOM
+        vdcStorageBillingModel: PAYG
+        name: VDC_ECO_1
+        vcpuInMhz2: 2200
+        description: Additionnal VDC for benchmarks
+        vdcServiceClass: ECO
+    createOrgVdcV2:
+      title: vDC
+      required:
+      - vdc
+      properties:
+        vdcGroup:
+          $ref: '#/components/schemas/vdcGroup'
+        vdc:
+          $ref: '#/components/schemas/orgVdcV2'
+    createOrg2Vdcs:
+      title: DualRoom 2vDC
+      required:
+      - dualVdcs
+      - vdcGroup
+      properties:
+        vdcGroup:
+          $ref: '#/components/schemas/vdcGroup'
+        dualVdcs:
+          $ref: '#/components/schemas/createOrg2Vdcs_dualVdcs'
+    UpdateOrgVdcV2:
+      required:
+      - vdc
+      - vdcGroup
+      properties:
+        vdcGroup:
+          $ref: '#/components/schemas/vdcGroup'
+        vdc:
+          $ref: '#/components/schemas/orgVdcV2'
+    GetOrgVdcs2:
+      required:
+      - vdc
+      properties:
+        vdcGroup:
+          $ref: '#/components/schemas/vdcGroup'
+        vdc:
+          $ref: '#/components/schemas/orgVdcV2'
+      example:
+        vdc:
+          memoryAllocated: 4
+          vdcBillingModel: PAYG
+          vdcStorageProfiles:
+          - default: true
+            limit: 500
+            class: gold
+          - default: true
+            limit: 500
+            class: gold
+          cpuAllocated: 11000
+          vdcDisponibilityClass: ONE-ROOM
+          vdcStorageBillingModel: PAYG
+          name: VDC_ECO_1
+          vcpuInMhz2: 2200
+          description: Additionnal VDC for benchmarks
+          vdcServiceClass: ECO
+        vdcGroup: myvDCGroup
+    edgeGateway:
+      type: object
+      properties:
+        tier0VrfId:
+          type: string
+          description: Identifier of Tier-0 VRF to connect the Edge Gateway
+          example: prvrf01iocb0000001allsp01
+        edgeId:
+          type: string
+          example: cc1f35c2-90a2-48d1-9359-62794faf44ad
+        edgeName:
+          type: string
+        ownerType:
+          type: string
+          enum:
+          - vdc
+          - vdc-group
+        ownerName:
+          type: string
+          example: myVDC01
+        description:
+          type: string
+      description: Edge Gateway (NSX-T Tier-1 Gateway)
+      example:
+        ownerType: vdc
+        edgeId: cc1f35c2-90a2-48d1-9359-62794faf44ad
+        ownerName: myVDC01
+        edgeName: edgeName
+        tier0VrfId: prvrf01iocb0000001allsp01
+        description: description
+    vDCList:
+      type: object
+      properties:
+        vdc_name:
+          type: string
+          description: vDC name
+          example: vdc01
+        vdc_uuid:
+          type: string
+          description: vDC uuid
+          example: 1bb33b06-8a3b-4a2c-a077-d4771794cf3c
+      description: vDC list
+      example:
+        vdc_name: vdc01
+        vdc_uuid: 1bb33b06-8a3b-4a2c-a077-d4771794cf3c
+    edgeGatewayNetworks:
+      type: array
+      description: List of edge gateway network configuration.
+      items:
+        $ref: '#/components/schemas/edgeGatewayNetworkGet'
+      x-schema-name: edgeGatewayNetworks
+    edgeGatewayNetworkGet:
+      required:
+      - networkType
+      - prefixLength
+      - startAddress
+      type: object
+      properties:
+        prefixLength:
+          maximum: 31
+          minimum: 27
+          type: integer
+          example: 27
+        startAddress:
+          minimum: 0
+          type: string
+          default: ""
+        networkType:
+          type: string
+          example: sv
+          enum:
+          - sv
+      description: Edge Gateway network configuration.
+      example:
+        networkType: sv
+        prefixLength: 27
+        startAddress: 100.103.193.160
+    bvpnType:
+      type: string
+      description: "Type of BVPN connectivity, bvpnico being to create interco with\
+        \ FCA orgs"
+      example: bvpn
+      enum:
+      - bvpn
+      - bvpnico
+    tier0List:
+      type: array
+      description: List of all Tier-0 VRF of the organisation
+      example:
+      - prvrf01iocb0000001allsp01
+      - prvrf01iocb0000001allsp02
+      items:
+        $ref: '#/components/schemas/tier0Name'
+      x-schema-name: tier0List
+    segment:
+      type: object
+      properties:
+        service:
+          type: string
+          example: INTERNET
+        vlan_id:
+          type: string
+          example: "1234"
+      description: Segments list of the Tier0-VRF
+    segments:
+      type: array
+      description: Segments list of the Tier0-VRF
+      example:
+      - service: OBJECT_STORAGE
+      items:
+        $ref: '#/components/schemas/segment'
+      x-schema-name: segments
+    tagVRF:
+      type: string
+      example: VRF_STANDARD
+      enum:
+      - VRF_STANDARD
+      - VRF_PREMIUM
+      - VRF_DEDICATED_MEDIUM
+      - VRF_DEDICATED_LARGE
+    class_service:
+      type: array
+      description: List of tag of the Tier0 VRF
+      example:
+      - VRF_STANDARD
+      items:
+        $ref: '#/components/schemas/tagVRF'
+      x-schema-name: class_service
+    tier0Details:
+      type: object
+      properties:
+        tier0_vrf:
+          $ref: '#/components/schemas/tier0Name'
+        tier0_provider:
+          type: string
+          description: Tier0 provider infos
+          example: pr01e02t0sp01
+        class_service:
+          $ref: '#/components/schemas/class_service'
+        segments:
+          $ref: '#/components/schemas/segments'
+      description: Details of Tier-0 VRF of the organisation
+      example:
+        tier0_vrf: prvrf01iocb1105414allsp02
+        class_service:
+        - VRF_STANDARD
+        tier0_provider: pr01e02t0sp01
+        segments:
+        - service: OBJECT_STORAGE
+    publicIps_networkConfig:
+      required:
+      - translatedIp
+      - uplinkIp
+      type: object
+      properties:
+        uplinkIp:
+          type: string
+          example: 196.26.50.90
+        translatedIp:
+          type: string
+          example: 10.10.10.0/30
+        edgeGatewayName:
+          type: string
+          description: The name of the edge gateway related to the public ip. This
+            properties is only present for NGP.
+      example:
+        uplinkIp: 196.26.50.90
+        edgeGatewayName: edgeGatewayName
+        translatedIp: 10.10.10.0/30
+    networkConfig_inner:
+      required:
+      - translatedIp
+      - uplinkIp
+      type: object
+      properties:
+        uplinkIp:
+          type: string
+          description: Contains public-ip in case of INET PESG
+          example: 195.25.43.10
+        translatedIp:
+          type: string
+          description: Contains vDC Edge IP in case of NAT configuration
+          example: 100.64.102.23
+    storages_inner:
+      required:
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the storage policy usable in a storage profile.
+          example: SILVERZ_CUST1
+    orgVdcs_inner:
+      required:
+      - cpuAllocated
+      - memoryAllocated
+      - name
+      - vdcBillingModel
+      - vdcDisponibilityClass
+      - vdcServiceClass
+      - vdcStorageBillingModel
+      - vdcStorageProfiles
+      type: object
+      properties:
+        id:
+          type: string
+          description: "VMware unique ID. There is no ID in the body of the POST request,\
+            \ as VMware which generates it. This ID must be present for GET and PUT."
+          example: a90baf04-7464-4631-98af-cd86077feb13
+        name:
+          maxLength: 27
+          minLength: 2
+          pattern: "^\\w{2,27}$"
+          type: string
+          description: Name of the new org vdc.
+          example: VDC_BENCH_AP
+        description:
+          type: string
+          description: Description of the new org vdc.
+          example: Additionnal VDC for benchmarks
+        isEnabled:
+          type: boolean
+          example: true
+          default: true
+        vdcServiceClass:
+          type: string
+          description: "SILVER, GOLD and PLATINUM_3K storage types are available for\
+            \ all classes. PLATINUM_5K and PLATINUM_10K are available only for STD\
+            \ (Standard), HP (High Performance) and VOIP (VoIP)."
+          enum:
+          - ECO
+          - STD
+          - HP
+          - VOIP
+        vdcDisponibilityClass:
+          type: string
+          description: Allocation model used by this vdc. DUAL-ROOM isn't available
+            for vdcServiceClass ECO.
+          example: ONE-ROOM
+          enum:
+          - ONE-ROOM
+          - DUAL-ROOM
+        vdcBillingModel:
+          type: string
+          description: Choose Billing model of storage resources. PAYG and DRAAS only
+            available for vdcServiceClass ECO and STD.
+          enum:
+          - PAYG
+          - DRAAS
+          - MIXED
+          - RESERVED
+          - DEDICATED
+        vdcStorageBillingModel:
+          type: string
+          description: Available for all vdcServiceClass.
+          enum:
+          - PAYG
+          - RESERVED
+        nicQuota:
+          type: number
+          description: "Maximum number of virtual NICs allowed in this vdc. Defaults\
+            \ to 0, which specifies an unlimited number."
+          example: 0
+          default: 0
+        networkQuota:
+          type: number
+          description: "Maximum number of network objects that can be deployed in\
+            \ this vdc. Defaults to 0, which means no networks can be deployed."
+          example: 1000
+          default: 0
+        vmQuota:
+          type: number
+          description: "Maximum number of VMs that can be created in this vdc. Defaults\
+            \ to 0, which specifies an unlimited number."
+          example: 0
+          default: 0
+        vcpuInMhz2:
+          minimum: 1000
+          type: number
+          description: "Specifies the clock frequency, in Mhz, for any virtual CPU\
+            \ that is allocated to a VM."
+          example: 2300
+          default: 2300
+        cpuAllocated:
+          maximum: 1000000
+          minimum: 5000
+          type: number
+          description: Capacity that is committed to be available or used as a limit
+            in PAYG mode. Unit for compute capacity allocated to this vdc is MHz.
+            Note. Reserved capacity is automatically set according to the service
+            class.
+          example: 100000
+        memoryAllocated:
+          maximum: 1000
+          minimum: 10
+          type: number
+          description: Memory capacity that is committed to be available or used as
+            a limit in PAYG mode. Unit for memory capacity allocated to this vdc is
+            Gb.
+          example: 72
+        vdcStorageProfiles:
+          $ref: '#/components/schemas/vdcStorageProfiles'
+        vdcEdges:
+          $ref: '#/components/schemas/vdcEdges'
+    createOrg2Vdcs_dualVdcs:
+      required:
+      - vdc1
+      - vdc2
+      type: object
+      properties:
+        vdc1:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/orgVdcV2'
+        vdc2:
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/orgVdcV2'
+  responses:
+    JobCreated:
+      description: Job created
+      headers:
+        X-Automation-Job-Id:
+          description: Job-Id used in jobs management requests.
+          style: simple
+          explode: false
+          schema:
+            type: string
+            format: uuid
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/jobcreated'
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    NotAcceptable:
+      description: Not Acceptable
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    NotFound:
+      description: Not Found
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    Conflict:
+      description: There is an other job pending for this organization
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+    InternalError:
+      description: Internal Server Error
+      content:
+        application/json;version=35.2:
+          schema:
+            $ref: '#/components/schemas/apiError'
+  securitySchemes:
+    vCloudDirector:
+      type: http
+      scheme: basic
+    X-VMWARE-VCLOUD-ACCESS-TOKEN:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
