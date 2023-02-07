@@ -21,16 +21,23 @@ jobs:
         with:
           definition-file: api/swagger.yaml
       - name: Swagger Codegen v3
-        uses: CapsLock-Studio/swagger-codegen-action@v1.2
+        uses: docker://swaggerapi/swagger-codegen-cli-v3
         with:
-          action: generate
-          language: go
-          input: api/swagger.yaml
-      - name: change authorization
-        run: |
-          sudo chmod -R 777 *
-          sudo chmod -R 777 .swagger-codegen
+          args:
+            - generate
+            - -i
+            - api/swagger.yaml
+            - -l
+            - go
+            - -c
+            - .swagger-codegen/config.json
+            - -o
+            - .
       - name: Create Pull Request
+        permissions:
+          contents: write
+          pull-requests: write
+          issues: write
         uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update Cloud Avenue SDK
