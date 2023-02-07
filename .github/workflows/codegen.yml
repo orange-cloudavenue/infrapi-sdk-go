@@ -27,16 +27,7 @@ jobs:
       - name: Swagger Codegen v3
         uses: docker://swaggerapi/swagger-codegen-cli-v3
         with:
-          args:
-            - generate
-            - -i
-            - api/swagger.yaml
-            - -l
-            - go
-            - -c
-            - .swagger-codegen/config.json
-            - -o
-            - .
+          args: generate -i api/swagger.yaml -l go -c .swagger-codegen/config.json -o .
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
