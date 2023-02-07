@@ -4,8 +4,8 @@ name: Generate SDK
 on:
   # schedule:
   #   - cron: "44 4 * * *"
+  workflow_dispatch:
   push:
-    workflow_dispatch:
     paths:
       - "api/swagger.yaml"
     branches:
