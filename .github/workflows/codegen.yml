@@ -1,10 +1,11 @@
 ---
-name: build on push dev
+name: Generate SDK
 
 on:
   # schedule:
   #   - cron: "44 4 * * *"
   push:
+    workflow_dispatch:
     paths:
       - "api/swagger.yaml"
     branches:
@@ -15,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Validate OpenAPI definition
+        uses: char0n/swagger-editor-validate@v1
+        with:
+          definition-file: api/swagger.yaml
       - name: Swagger Codegen v3
         uses: bjerkio/swagger-codegen-action@v1
         with:
