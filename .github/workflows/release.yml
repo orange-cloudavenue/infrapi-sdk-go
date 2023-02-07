@@ -4,12 +4,17 @@ on:
   push:
     branches:
       - main
-  
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   release_please:
     name: Release Please
     runs-on: ubuntu-22.04
-    if: github.repository == 'FrangipaneTeam/provider-flexibleengine'
+    if: github.repository == 'orange-cloudavenue/cloudavenue-sdk-go'
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
       tag_name: ${{ steps.release.outputs.tag_name }}
