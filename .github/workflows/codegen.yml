@@ -24,7 +24,7 @@ jobs:
         uses: bjerkio/swagger-codegen-action@v1
         with:
           args: |
-            generate --lang go -i api/swagger.yaml
+            generate -l go -i api/swagger.yaml
       - name: change authorization
         run: |
           sudo chmod -R 777 *
