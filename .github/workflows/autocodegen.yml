@@ -2,6 +2,7 @@
 name: AutoBuild
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: "44 4 * * *"
 
