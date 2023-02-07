@@ -21,7 +21,7 @@ jobs:
         with:
           definition-file: api/swagger.yaml
       - name: Swagger Codegen v3
-        uses: CapsLock-Studio/swagger-codegen-action@v1
+        uses: CapsLock-Studio/swagger-codegen-action@v1.2
         with:
           action: generate
           language: go
