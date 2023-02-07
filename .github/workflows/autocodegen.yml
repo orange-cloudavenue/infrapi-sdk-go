@@ -1,5 +1,5 @@
 ---
-name: AutoBuild
+name: Generate SDK from distant swagger
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ jobs:
         with:
           definition-file: NGP_Api_for_Customer_Cloud_Avenue.yml
       - name: Swagger Codegen v3
-        uses: bjerkio/swagger-codegen-action@v1
+        uses: CapsLock-Studio/swagger-codegen-action@v1
         with:
           args: |
             generate --lang go --input-spec NGP_Api_for_Customer_Cloud_Avenue.yml

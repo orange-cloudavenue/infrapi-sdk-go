@@ -1,5 +1,5 @@
 ---
-name: Generate SDK
+name: Generate SDK from local swagger
 
 on:
   # schedule:
@@ -21,7 +21,7 @@ jobs:
         with:
           definition-file: api/swagger.yaml
       - name: Swagger Codegen v3
-        uses: bjerkio/swagger-codegen-action@v1
+        uses: CapsLock-Studio/swagger-codegen-action@v1
         with:
           args: |
             generate -l go -i api/swagger.yaml
