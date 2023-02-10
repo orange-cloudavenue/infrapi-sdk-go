@@ -1126,8 +1126,8 @@ paths:
           type: string
         example: cc1f35c2-90a2-48d1-9359-62794faf44ad
       responses:
-        "202":
-          description: Edge gateway deleted.
+        "201":
+          description: Job created
           headers:
             X-Automation-Job-Id:
               description: Job-Id used in jobs management requests.
@@ -1139,8 +1139,7 @@ paths:
           content:
             application/json;version=35.2:
               schema:
-                type: string
-                x-content-type: application/json;version=35.2
+                $ref: '#/components/schemas/jobcreated'
         "400":
           description: Bad Request
           content:
