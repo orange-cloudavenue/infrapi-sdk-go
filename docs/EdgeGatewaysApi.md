@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**ApiCustomersV20VdcsVdcNameEdgesPost**](EdgeGatewaysApi.md#ApiCustomersV20VdcsVdcNameEdgesPost) | **Post** /api/customers/v2.0/vdcs/{vdc-name}/edges | Create one Edge gateway
 
 # **ApiCustomersV20EdgesEdgeIdDelete**
-> string ApiCustomersV20EdgesEdgeIdDelete(ctx, edgeId)
+> Jobcreated ApiCustomersV20EdgesEdgeIdDelete(ctx, edgeId)
 Remove Edge Gateway
 
 ### Required Parameters
@@ -24,7 +24,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[**Jobcreated**](jobcreated.md)
 
 ### Authorization
 

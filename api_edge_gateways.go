@@ -28,15 +28,15 @@ type EdgeGatewaysApiService service
 EdgeGatewaysApiService Remove Edge Gateway
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param edgeId
-@return string
+@return Jobcreated
 */
-func (a *EdgeGatewaysApiService) ApiCustomersV20EdgesEdgeIdDelete(ctx context.Context, edgeId string) (string, *http.Response, error) {
+func (a *EdgeGatewaysApiService) ApiCustomersV20EdgesEdgeIdDelete(ctx context.Context, edgeId string) (Jobcreated, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue string
+		localVarReturnValue Jobcreated
 	)
 
 	// create path and map variables
@@ -93,8 +93,8 @@ func (a *EdgeGatewaysApiService) ApiCustomersV20EdgesEdgeIdDelete(ctx context.Co
 			body: localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		if localVarHttpResponse.StatusCode == 202 {
-			var v string
+		if localVarHttpResponse.StatusCode == 201 {
+			var v Jobcreated
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
