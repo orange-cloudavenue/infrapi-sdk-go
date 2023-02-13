@@ -4,12 +4,12 @@ All URIs are relative to *https://console1.cloudavenue.orange-business.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ApiCustomersV10IpPost**](PublicIPApi.md#ApiCustomersV10IpPost) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
-[**ApiCustomersV10IpPublicIpDelete**](PublicIPApi.md#ApiCustomersV10IpPublicIpDelete) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
-[**ApiCustomersV20IpGet**](PublicIPApi.md#ApiCustomersV20IpGet) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
+[**CreatePublicIP**](PublicIPApi.md#CreatePublicIP) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
+[**DeletePublicIP**](PublicIPApi.md#DeletePublicIP) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
+[**GetPublicIPs**](PublicIPApi.md#GetPublicIPs) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
 
-# **ApiCustomersV10IpPost**
-> Jobcreated ApiCustomersV10IpPost(ctx, optional)
+# **CreatePublicIP**
+> Jobcreated CreatePublicIP(ctx, optional)
 Request and configure a new public IP address
 
 ### Required Parameters
@@ -17,10 +17,10 @@ Request and configure a new public IP address
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
- **optional** | ***PublicIPApiApiCustomersV10IpPostOpts** | optional parameters | nil if no parameters
+ **optional** | ***PublicIPApiCreatePublicIPOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
-Optional parameters are passed through a pointer to a PublicIPApiApiCustomersV10IpPostOpts struct
+Optional parameters are passed through a pointer to a PublicIPApiCreatePublicIPOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xNattedIP** | **optional.String**| Target IP to configure NAT. If not provided, it configure [Double NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT) with a new IP on INET VDC Edge. If the IP or IP range provided is in 100.64.102.1-100.64.102.253 [Double NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT) is configured. If the IP is a private IP [Direct NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#NAT_Direct) is configured. | 
@@ -42,8 +42,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **ApiCustomersV10IpPublicIpDelete**
-> Jobcreated ApiCustomersV10IpPublicIpDelete(ctx, publicIp)
+# **DeletePublicIP**
+> Jobcreated DeletePublicIP(ctx, publicIp)
 Remove all configuration related to a public IP address and free IP
 
 ### Required Parameters
@@ -68,8 +68,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **ApiCustomersV20IpGet**
-> PublicIps ApiCustomersV20IpGet(ctx, )
+# **GetPublicIPs**
+> PublicIps GetPublicIPs(ctx, )
 Get Organization's public IP addresses
 
 ### Required Parameters

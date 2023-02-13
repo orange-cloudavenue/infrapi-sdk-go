@@ -30,7 +30,7 @@ JobsApiService Returns a job status by ID.
  * @param jobId
 @return []ParentJobMetadata
 */
-func (a *JobsApiService) ApiCustomersV10JobsJobIdGet(ctx context.Context, jobId string) ([]ParentJobMetadata, *http.Response, error) {
+func (a *JobsApiService) GetJobById(ctx context.Context, jobId string) ([]ParentJobMetadata, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}

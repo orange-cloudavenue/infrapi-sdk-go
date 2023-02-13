@@ -28,20 +28,20 @@ type PublicIPApiService service
 /*
 PublicIPApiService Request and configure a new public IP address
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *PublicIPApiApiCustomersV10IpPostOpts - Optional Parameters:
+ * @param optional nil or *PublicIPApiCreatePublicIPOpts - Optional Parameters:
      * @param "XNattedIP" (optional.String) -  Target IP to configure NAT. If not provided, it configure [Double NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT) with a new IP on INET VDC Edge. If the IP or IP range provided is in 100.64.102.1-100.64.102.253 [Double NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#Double_NAT) is configured. If the IP is a private IP [Direct NAT](https://wiki.flexible-computing-advanced.orange-business.com/wiki/Le_r%C3%A9seau#NAT_Direct) is configured.
      * @param "XVDCEdgeName" (optional.String) -  Public IP is natted toward the specified VDC Edge. This parameter overrides X-VDC-Name.
      * @param "XVDCName" (optional.String) -  Public IP is natted toward the INET VDC Edge in the specified VDC Name. This parameter helps to find target VDC Edge in case of multiples INET VDC Edges with same names.
 @return Jobcreated
 */
 
-type PublicIPApiApiCustomersV10IpPostOpts struct {
+type PublicIPApiCreatePublicIPOpts struct {
     XNattedIP optional.String
     XVDCEdgeName optional.String
     XVDCName optional.String
 }
 
-func (a *PublicIPApiService) ApiCustomersV10IpPost(ctx context.Context, localVarOptionals *PublicIPApiApiCustomersV10IpPostOpts) (Jobcreated, *http.Response, error) {
+func (a *PublicIPApiService) CreatePublicIP(ctx context.Context, localVarOptionals *PublicIPApiCreatePublicIPOpts) (Jobcreated, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -203,7 +203,7 @@ PublicIPApiService Remove all configuration related to a public IP address and f
  * @param publicIp Public IP address to free
 @return Jobcreated
 */
-func (a *PublicIPApiService) ApiCustomersV10IpPublicIpDelete(ctx context.Context, publicIp string) (Jobcreated, *http.Response, error) {
+func (a *PublicIPApiService) DeletePublicIP(ctx context.Context, publicIp string) (Jobcreated, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -356,7 +356,7 @@ PublicIPApiService Get Organization&#x27;s public IP addresses
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return PublicIps
 */
-func (a *PublicIPApiService) ApiCustomersV20IpGet(ctx context.Context) (PublicIps, *http.Response, error) {
+func (a *PublicIPApiService) GetPublicIPs(ctx context.Context) (PublicIps, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}

@@ -25,22 +25,24 @@ var (
 
 type Tier0ApiService service
 /*
-Tier0ApiService Get all Tier-0 Gateway
-Get all Tier-0 gateway.
+Tier0ApiService Get Tier-0 Details
+Get Tier-0 details.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []string
+ * @param tier0Name
+@return Tier0Details
 */
-func (a *Tier0ApiService) ApiCustomersV20Tier0VrfsGet(ctx context.Context) ([]string, *http.Response, error) {
+func (a *Tier0ApiService) GetTier0VrfByName(ctx context.Context, tier0Name string) (Tier0Details, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []string
+		localVarReturnValue Tier0Details
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/tier-0-vrfs"
+	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/tier-0-vrfs/{tier0_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"tier0_name"+"}", fmt.Sprintf("%v", tier0Name), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -93,7 +95,7 @@ func (a *Tier0ApiService) ApiCustomersV20Tier0VrfsGet(ctx context.Context) ([]st
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v []string
+			var v Tier0Details
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -168,24 +170,22 @@ func (a *Tier0ApiService) ApiCustomersV20Tier0VrfsGet(ctx context.Context) ([]st
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 /*
-Tier0ApiService Get Tier-0 Details
-Get Tier-0 details.
+Tier0ApiService Get all Tier-0 Gateway
+Get all Tier-0 gateway.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param tier0Name
-@return Tier0Details
+@return []string
 */
-func (a *Tier0ApiService) ApiCustomersV20Tier0VrfsTier0NameGet(ctx context.Context, tier0Name string) (Tier0Details, *http.Response, error) {
+func (a *Tier0ApiService) GetTier0Vrfs(ctx context.Context) ([]string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue Tier0Details
+		localVarReturnValue []string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/tier-0-vrfs/{tier0_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"tier0_name"+"}", fmt.Sprintf("%v", tier0Name), -1)
+	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/tier-0-vrfs"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -238,7 +238,7 @@ func (a *Tier0ApiService) ApiCustomersV20Tier0VrfsTier0NameGet(ctx context.Conte
 			error: localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
-			var v Tier0Details
+			var v []string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
