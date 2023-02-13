@@ -31,6 +31,7 @@ paths:
         Login must be like username@organization (example : r.dupont@cav01ev01ocb0000000).
         Once logged in, use use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from
         response header and add it in X-VMWARE-VCLOUD-ACCESS-TOKEN security parameter.
+      operationId: getToken
       parameters: []
       responses:
         "200":
@@ -99,6 +100,7 @@ paths:
       tags:
       - Users
       summary: Return federation status of an organization
+      operationId: getFederationStatus
       parameters: []
       responses:
         "200":
@@ -160,6 +162,7 @@ paths:
       summary: Regenerate SAML certificate
       description: Regenerate SAML certificate of an organization and updates the
         LemonLDAP entry with the new certificate.
+      operationId: updateFederation
       parameters: []
       responses:
         "201":
@@ -228,6 +231,7 @@ paths:
       - Users
       summary: Federate an existing organization
       description: Federate an existing organization
+      operationId: createFederation
       parameters: []
       responses:
         "201":
@@ -296,6 +300,7 @@ paths:
       tags:
       - Public IP
       summary: Request and configure a new public IP address
+      operationId: createPublicIP
       parameters:
       - name: X-Natted-IP
         in: header
@@ -398,6 +403,7 @@ paths:
       tags:
       - Public IP
       summary: Get Organization's public IP addresses
+      operationId: getPublicIPs
       parameters: []
       responses:
         "200":
@@ -460,6 +466,7 @@ paths:
       tags:
       - Public IP
       summary: Remove all configuration related to a public IP address and free IP
+      operationId: deletePublicIP
       parameters:
       - name: public-ip
         in: path
@@ -539,6 +546,7 @@ paths:
       tags:
       - Jobs
       summary: Returns a job status by ID.
+      operationId: getJobById
       parameters:
       - name: Job-Id
         in: path
@@ -612,6 +620,7 @@ paths:
       summary: Get on premise IP addresses
       description: Get list of on premise IP addresses allowed for this organization's
         draas offer
+      operationId: getVcdaIPs
       parameters: []
       responses:
         "200":
@@ -677,6 +686,7 @@ paths:
       summary: Add on premise IP address
       description: Allow a new on premise IP address for this organization's draas
         offer
+      operationId: createVcdaIP
       parameters:
       - name: Ip-Address
         in: path
@@ -746,6 +756,7 @@ paths:
       summary: Remove on premise IP address
       description: Remove an existing on premise IP address from this organization's
         draas offer
+      operationId: deleteVcdaIP
       parameters:
       - name: Ip-Address
         in: path
@@ -816,6 +827,7 @@ paths:
       summary: Create one Edge gateway
       description: "When creating an Edge Gateway attached to a vDC, this vDC will\
         \ be isolated."
+      operationId: createVdcEdge
       parameters:
       - name: vdc-name
         in: path
@@ -902,6 +914,7 @@ paths:
       summary: Create one Edge gateway in vDC group
       description: "When creating an Edge Gateway attached to a vDC group, this Edge\
         \ Gateway will be shared with other vDC inside the same vDC group"
+      operationId: createVdcGroupEdge
       parameters:
       - name: vdc-group-name
         in: path
@@ -986,6 +999,7 @@ paths:
       tags:
       - Edge Gateways
       summary: List edge gateway of an organization
+      operationId: getEdges
       parameters: []
       responses:
         "200":
@@ -1049,6 +1063,7 @@ paths:
       tags:
       - Edge Gateways
       summary: Get Edge gateway details
+      operationId: getEdgeById
       parameters:
       - name: edge-id
         in: path
@@ -1116,6 +1131,7 @@ paths:
       tags:
       - Edge Gateways
       summary: Remove Edge Gateway
+      operationId: deleteEdge
       parameters:
       - name: edge-id
         in: path
@@ -1193,6 +1209,7 @@ paths:
       - Edge Gateways
       summary: Get edge gateway network configuration
       description: Retrieve the configuration of edge gateway network
+      operationId: getEdgeNetworks
       parameters:
       - name: edge-id
         in: path
@@ -1262,6 +1279,7 @@ paths:
       - Tier-0
       summary: Get all Tier-0 Gateway
       description: Get all Tier-0 gateway.
+      operationId: getTier0Vrfs
       parameters: []
       responses:
         "200":
@@ -1317,6 +1335,7 @@ paths:
       - Tier-0
       summary: Get Tier-0 Details
       description: Get Tier-0 details.
+      operationId: getTier0VrfByName
       parameters:
       - name: tier0_name
         in: path
@@ -1379,6 +1398,7 @@ paths:
       - vDC
       summary: List Org vDCs
       description: List all VDC inside an Organization
+      operationId: getOrgVdcs
       parameters: []
       responses:
         "200":
@@ -1441,6 +1461,7 @@ paths:
       tags:
       - vDC
       summary: Create a new Org VDC
+      operationId: createOrgVdc
       parameters: []
       requestBody:
         description: Tenant technical details
@@ -1516,6 +1537,7 @@ paths:
       tags:
       - vDC
       summary: Get details about one vDC
+      operationId: getOrgVdcByName
       parameters:
       - name: vdc-name
         in: path
@@ -1582,6 +1604,7 @@ paths:
       tags:
       - vDC
       summary: Update a vDC
+      operationId: updateOrgVdc
       parameters:
       - name: vdc-name
         in: path
@@ -1666,6 +1689,7 @@ paths:
       summary: Delete a vDC
       description: "Delete an empty vDC, will return an error if the vDC has Edges\
         \ or vApps (must remove before)"
+      operationId: deleteOrgVdc
       parameters:
       - name: vdc-name
         in: path
