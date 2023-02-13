@@ -100,7 +100,7 @@ paths:
       tags:
       - Users
       summary: Return federation status of an organization
-      operationId: getFederationStatus
+      operationId: getFederation
       parameters: []
       responses:
         "200":
