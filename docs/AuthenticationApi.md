@@ -4,10 +4,10 @@ All URIs are relative to *https://console1.cloudavenue.orange-business.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Cloudapi100SessionsPost**](AuthenticationApi.md#Cloudapi100SessionsPost) | **Post** /cloudapi/1.0.0/sessions | Login to your organization
+[**GetToken**](AuthenticationApi.md#GetToken) | **Post** /cloudapi/1.0.0/sessions | Login to your organization
 
-# **Cloudapi100SessionsPost**
-> string Cloudapi100SessionsPost(ctx, )
+# **GetToken**
+> string GetToken(ctx, )
 Login to your organization
 
 This login method is available thanks to vCD API. Login must be like username@organization (example : r.dupont@cav01ev01ocb0000000). Once logged in, use use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from response header and add it in X-VMWARE-VCLOUD-ACCESS-TOKEN security parameter. 

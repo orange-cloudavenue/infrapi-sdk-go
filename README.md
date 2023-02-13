@@ -21,30 +21,30 @@ All URIs are relative to *https://console1.cloudavenue.orange-business.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AuthenticationApi* | [**Cloudapi100SessionsPost**](docs/AuthenticationApi.md#cloudapi100sessionspost) | **Post** /cloudapi/1.0.0/sessions | Login to your organization
-*EdgeGatewaysApi* | [**ApiCustomersV20EdgesEdgeIdDelete**](docs/EdgeGatewaysApi.md#apicustomersv20edgesedgeiddelete) | **Delete** /api/customers/v2.0/edges/{edge-id} | Remove Edge Gateway
-*EdgeGatewaysApi* | [**ApiCustomersV20EdgesEdgeIdGet**](docs/EdgeGatewaysApi.md#apicustomersv20edgesedgeidget) | **Get** /api/customers/v2.0/edges/{edge-id} | Get Edge gateway details
-*EdgeGatewaysApi* | [**ApiCustomersV20EdgesEdgeIdNetworksGet**](docs/EdgeGatewaysApi.md#apicustomersv20edgesedgeidnetworksget) | **Get** /api/customers/v2.0/edges/{edge-id}/networks | Get edge gateway network configuration
-*EdgeGatewaysApi* | [**ApiCustomersV20EdgesGet**](docs/EdgeGatewaysApi.md#apicustomersv20edgesget) | **Get** /api/customers/v2.0/edges | List edge gateway of an organization
-*EdgeGatewaysApi* | [**ApiCustomersV20VdcGroupsVdcGroupNameEdgesPost**](docs/EdgeGatewaysApi.md#apicustomersv20vdcgroupsvdcgroupnameedgespost) | **Post** /api/customers/v2.0/vdc-groups/{vdc-group-name}/edges | Create one Edge gateway in vDC group
-*EdgeGatewaysApi* | [**ApiCustomersV20VdcsVdcNameEdgesPost**](docs/EdgeGatewaysApi.md#apicustomersv20vdcsvdcnameedgespost) | **Post** /api/customers/v2.0/vdcs/{vdc-name}/edges | Create one Edge gateway
-*JobsApi* | [**ApiCustomersV10JobsJobIdGet**](docs/JobsApi.md#apicustomersv10jobsjobidget) | **Get** /api/customers/v1.0/jobs/{Job-Id} | Returns a job status by ID.
-*PublicIPApi* | [**ApiCustomersV10IpPost**](docs/PublicIPApi.md#apicustomersv10ippost) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
-*PublicIPApi* | [**ApiCustomersV10IpPublicIpDelete**](docs/PublicIPApi.md#apicustomersv10ippublicipdelete) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
-*PublicIPApi* | [**ApiCustomersV20IpGet**](docs/PublicIPApi.md#apicustomersv20ipget) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
-*Tier0Api* | [**ApiCustomersV20Tier0VrfsGet**](docs/Tier0Api.md#apicustomersv20tier0vrfsget) | **Get** /api/customers/v2.0/tier-0-vrfs | Get all Tier-0 Gateway
-*Tier0Api* | [**ApiCustomersV20Tier0VrfsTier0NameGet**](docs/Tier0Api.md#apicustomersv20tier0vrfstier0nameget) | **Get** /api/customers/v2.0/tier-0-vrfs/{tier0_name} | Get Tier-0 Details
-*UsersApi* | [**ApiCustomersV10FederateGet**](docs/UsersApi.md#apicustomersv10federateget) | **Get** /api/customers/v1.0/federate | Return federation status of an organization
-*UsersApi* | [**ApiCustomersV10FederatePost**](docs/UsersApi.md#apicustomersv10federatepost) | **Post** /api/customers/v1.0/federate | Federate an existing organization
-*UsersApi* | [**ApiCustomersV10FederatePut**](docs/UsersApi.md#apicustomersv10federateput) | **Put** /api/customers/v1.0/federate | Regenerate SAML certificate
-*VCDAApi* | [**ApiCustomersV20VcdaIpsGet**](docs/VCDAApi.md#apicustomersv20vcdaipsget) | **Get** /api/customers/v2.0/vcda/ips | Get on premise IP addresses
-*VCDAApi* | [**ApiCustomersV20VcdaIpsIpAddressDelete**](docs/VCDAApi.md#apicustomersv20vcdaipsipaddressdelete) | **Delete** /api/customers/v2.0/vcda/ips/{Ip-Address} | Remove on premise IP address
-*VCDAApi* | [**ApiCustomersV20VcdaIpsIpAddressPost**](docs/VCDAApi.md#apicustomersv20vcdaipsipaddresspost) | **Post** /api/customers/v2.0/vcda/ips/{Ip-Address} | Add on premise IP address
-*VDCApi* | [**ApiCustomersV20VdcsGet**](docs/VDCApi.md#apicustomersv20vdcsget) | **Get** /api/customers/v2.0/vdcs | List Org vDCs
-*VDCApi* | [**ApiCustomersV20VdcsPost**](docs/VDCApi.md#apicustomersv20vdcspost) | **Post** /api/customers/v2.0/vdcs | Create a new Org VDC
-*VDCApi* | [**ApiCustomersV20VdcsVdcNameDelete**](docs/VDCApi.md#apicustomersv20vdcsvdcnamedelete) | **Delete** /api/customers/v2.0/vdcs/{vdc-name} | Delete a vDC
-*VDCApi* | [**ApiCustomersV20VdcsVdcNameGet**](docs/VDCApi.md#apicustomersv20vdcsvdcnameget) | **Get** /api/customers/v2.0/vdcs/{vdc-name} | Get details about one vDC
-*VDCApi* | [**ApiCustomersV20VdcsVdcNamePut**](docs/VDCApi.md#apicustomersv20vdcsvdcnameput) | **Put** /api/customers/v2.0/vdcs/{vdc-name} | Update a vDC
+*AuthenticationApi* | [**GetToken**](docs/AuthenticationApi.md#gettoken) | **Post** /cloudapi/1.0.0/sessions | Login to your organization
+*EdgeGatewaysApi* | [**CreateVdcEdge**](docs/EdgeGatewaysApi.md#createvdcedge) | **Post** /api/customers/v2.0/vdcs/{vdc-name}/edges | Create one Edge gateway
+*EdgeGatewaysApi* | [**CreateVdcGroupEdge**](docs/EdgeGatewaysApi.md#createvdcgroupedge) | **Post** /api/customers/v2.0/vdc-groups/{vdc-group-name}/edges | Create one Edge gateway in vDC group
+*EdgeGatewaysApi* | [**DeleteEdge**](docs/EdgeGatewaysApi.md#deleteedge) | **Delete** /api/customers/v2.0/edges/{edge-id} | Remove Edge Gateway
+*EdgeGatewaysApi* | [**GetEdgeById**](docs/EdgeGatewaysApi.md#getedgebyid) | **Get** /api/customers/v2.0/edges/{edge-id} | Get Edge gateway details
+*EdgeGatewaysApi* | [**GetEdgeNetworks**](docs/EdgeGatewaysApi.md#getedgenetworks) | **Get** /api/customers/v2.0/edges/{edge-id}/networks | Get edge gateway network configuration
+*EdgeGatewaysApi* | [**GetEdges**](docs/EdgeGatewaysApi.md#getedges) | **Get** /api/customers/v2.0/edges | List edge gateway of an organization
+*JobsApi* | [**GetJobById**](docs/JobsApi.md#getjobbyid) | **Get** /api/customers/v1.0/jobs/{Job-Id} | Returns a job status by ID.
+*PublicIPApi* | [**CreatePublicIP**](docs/PublicIPApi.md#createpublicip) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
+*PublicIPApi* | [**DeletePublicIP**](docs/PublicIPApi.md#deletepublicip) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
+*PublicIPApi* | [**GetPublicIPs**](docs/PublicIPApi.md#getpublicips) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
+*Tier0Api* | [**GetTier0VrfByName**](docs/Tier0Api.md#gettier0vrfbyname) | **Get** /api/customers/v2.0/tier-0-vrfs/{tier0_name} | Get Tier-0 Details
+*Tier0Api* | [**GetTier0Vrfs**](docs/Tier0Api.md#gettier0vrfs) | **Get** /api/customers/v2.0/tier-0-vrfs | Get all Tier-0 Gateway
+*UsersApi* | [**CreateFederation**](docs/UsersApi.md#createfederation) | **Post** /api/customers/v1.0/federate | Federate an existing organization
+*UsersApi* | [**GetFederation**](docs/UsersApi.md#getfederation) | **Get** /api/customers/v1.0/federate | Return federation status of an organization
+*UsersApi* | [**UpdateFederation**](docs/UsersApi.md#updatefederation) | **Put** /api/customers/v1.0/federate | Regenerate SAML certificate
+*VCDAApi* | [**CreateVcdaIP**](docs/VCDAApi.md#createvcdaip) | **Post** /api/customers/v2.0/vcda/ips/{Ip-Address} | Add on premise IP address
+*VCDAApi* | [**DeleteVcdaIP**](docs/VCDAApi.md#deletevcdaip) | **Delete** /api/customers/v2.0/vcda/ips/{Ip-Address} | Remove on premise IP address
+*VCDAApi* | [**GetVcdaIPs**](docs/VCDAApi.md#getvcdaips) | **Get** /api/customers/v2.0/vcda/ips | Get on premise IP addresses
+*VDCApi* | [**CreateOrgVdc**](docs/VDCApi.md#createorgvdc) | **Post** /api/customers/v2.0/vdcs | Create a new Org VDC
+*VDCApi* | [**DeleteOrgVdc**](docs/VDCApi.md#deleteorgvdc) | **Delete** /api/customers/v2.0/vdcs/{vdc-name} | Delete a vDC
+*VDCApi* | [**GetOrgVdcByName**](docs/VDCApi.md#getorgvdcbyname) | **Get** /api/customers/v2.0/vdcs/{vdc-name} | Get details about one vDC
+*VDCApi* | [**GetOrgVdcs**](docs/VDCApi.md#getorgvdcs) | **Get** /api/customers/v2.0/vdcs | List Org vDCs
+*VDCApi* | [**UpdateOrgVdc**](docs/VDCApi.md#updateorgvdc) | **Put** /api/customers/v2.0/vdcs/{vdc-name} | Update a vDC
 
 ## Documentation For Models
 

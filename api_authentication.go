@@ -29,7 +29,7 @@ This login method is available thanks to vCD API. Login must be like username@or
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 @return string
 */
-func (a *AuthenticationApiService) Cloudapi100SessionsPost(ctx context.Context) (string, *http.Response, error) {
+func (a *AuthenticationApiService) GetToken(ctx context.Context) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}

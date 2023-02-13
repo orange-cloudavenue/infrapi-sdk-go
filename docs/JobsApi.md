@@ -4,10 +4,10 @@ All URIs are relative to *https://console1.cloudavenue.orange-business.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ApiCustomersV10JobsJobIdGet**](JobsApi.md#ApiCustomersV10JobsJobIdGet) | **Get** /api/customers/v1.0/jobs/{Job-Id} | Returns a job status by ID.
+[**GetJobById**](JobsApi.md#GetJobById) | **Get** /api/customers/v1.0/jobs/{Job-Id} | Returns a job status by ID.
 
-# **ApiCustomersV10JobsJobIdGet**
-> []ParentJobMetadata ApiCustomersV10JobsJobIdGet(ctx, jobId)
+# **GetJobById**
+> []ParentJobMetadata GetJobById(ctx, jobId)
 Returns a job status by ID.
 
 ### Required Parameters

@@ -25,22 +25,24 @@ var (
 
 type VCDAApiService service
 /*
-VCDAApiService Get on premise IP addresses
-Get list of on premise IP addresses allowed for this organization&#x27;s draas offer
+VCDAApiService Add on premise IP address
+Allow a new on premise IP address for this organization&#x27;s draas offer
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return []string
+ * @param ipAddress
+@return string
 */
-func (a *VCDAApiService) ApiCustomersV20VcdaIpsGet(ctx context.Context) ([]string, *http.Response, error) {
+func (a *VCDAApiService) CreateVcdaIP(ctx context.Context, ipAddress string) (string, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
+		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue []string
+		localVarReturnValue string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/vcda/ips"
+	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/vcda/ips/{Ip-Address}"
+	localVarPath = strings.Replace(localVarPath, "{"+"Ip-Address"+"}", fmt.Sprintf("%v", ipAddress), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -92,8 +94,8 @@ func (a *VCDAApiService) ApiCustomersV20VcdaIpsGet(ctx context.Context) ([]strin
 			body: localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		if localVarHttpResponse.StatusCode == 200 {
-			var v []string
+		if localVarHttpResponse.StatusCode == 204 {
+			var v string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -184,7 +186,7 @@ Remove an existing on premise IP address from this organization&#x27;s draas off
  * @param ipAddress
 @return string
 */
-func (a *VCDAApiService) ApiCustomersV20VcdaIpsIpAddressDelete(ctx context.Context, ipAddress string) (string, *http.Response, error) {
+func (a *VCDAApiService) DeleteVcdaIP(ctx context.Context, ipAddress string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -333,24 +335,22 @@ func (a *VCDAApiService) ApiCustomersV20VcdaIpsIpAddressDelete(ctx context.Conte
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 /*
-VCDAApiService Add on premise IP address
-Allow a new on premise IP address for this organization&#x27;s draas offer
+VCDAApiService Get on premise IP addresses
+Get list of on premise IP addresses allowed for this organization&#x27;s draas offer
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ipAddress
-@return string
+@return []string
 */
-func (a *VCDAApiService) ApiCustomersV20VcdaIpsIpAddressPost(ctx context.Context, ipAddress string) (string, *http.Response, error) {
+func (a *VCDAApiService) GetVcdaIPs(ctx context.Context) ([]string, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
+		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue string
+		localVarReturnValue []string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/vcda/ips/{Ip-Address}"
-	localVarPath = strings.Replace(localVarPath, "{"+"Ip-Address"+"}", fmt.Sprintf("%v", ipAddress), -1)
+	localVarPath := a.client.cfg.BasePath + "/api/customers/v2.0/vcda/ips"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -402,8 +402,8 @@ func (a *VCDAApiService) ApiCustomersV20VcdaIpsIpAddressPost(ctx context.Context
 			body: localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		if localVarHttpResponse.StatusCode == 204 {
-			var v string
+		if localVarHttpResponse.StatusCode == 200 {
+			var v []string
 			err = a.client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
