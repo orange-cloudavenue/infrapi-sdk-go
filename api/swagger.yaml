@@ -564,6 +564,17 @@ paths:
             application/json;version=35.2:
               schema:
                 $ref: '#/components/schemas/parentJob'
+              examples:
+                deleteEdgeGW:
+                  summary: delete edge gateway
+                  value:
+                    actions:
+                    - name: DELETE T1
+                      details: 3ed625b3-8f6f-49f8-828b-90bca70816d5
+                      status: DONE
+                    status: DONE
+                    name: parent_job
+                    description: parent job containing a list of actions
         "400":
           description: Bad Request
           content:
@@ -2085,17 +2096,6 @@ components:
           - IN_PROGRESS
           - FAILED
           - DONE
-      example:
-        name: name
-        description: description
-        actions:
-        - name: CREATE_VORG
-          details: details
-          status: CREATED
-        - name: CREATE_VORG
-          details: details
-          status: CREATED
-        status: CREATED
     parentJob:
       type: array
       items:
