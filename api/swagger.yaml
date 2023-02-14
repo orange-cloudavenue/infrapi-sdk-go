@@ -46,8 +46,8 @@ paths:
           content:
             application/json;version=35.2:
               schema:
-                type: string
                 x-content-type: application/json;version=35.2
+                $ref: '#/components/schemas/loginSuccess'
         "400":
           description: Bad Request
           content:
@@ -1764,6 +1764,22 @@ paths:
       - NGP_API_FOR_CUSTOMER
 components:
   schemas:
+    loginSuccess:
+      example:
+        id: urn:vcloud:session:c0b72ac7-dad9-49d1-99f8-496ab79f5181
+        user:
+          name: dasilva
+          id: urn:vcloud:user:c8f80949-ae41-413f-9d10-a5eba6a8fcff
+        org:
+          name: yourorg
+          id: urn:vcloud:org:03a008bd-1d44-458d-bf13-01a23ca509b2
+        location: 1ad81464-3646-48f2-8acc-43e9e16a6f55@ded4bb44-a4b8-49ae-aef5-41dc44137a48
+        roles:
+          - Organization Administrator
+        roleRefs:
+          - name: Organization Administrator
+            id: urn:vcloud:role:7046b248-44b1-4b43-ad1d-f5d3a90f017c
+        sessionIdleTimeoutMinutes: 30
     customerInformation:
       required:
       - bssServiceId
