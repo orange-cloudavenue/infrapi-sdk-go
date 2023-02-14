@@ -1453,6 +1453,11 @@ paths:
                 items:
                   $ref: '#/components/schemas/vDCList'
                 x-content-type: application/json;version=35.2
+              example:
+              - vdc_name: vdc01
+                vdc_uuid: 1bb33b06-8a3b-4a2c-a077-d4771794cf3c
+              - vdc_name: vdc02
+                vdc_uuid: 9b1243ea-ca4f-4a20-9ff4-844f0584b3e7
         "400":
           description: Bad Request
           content:
@@ -2528,9 +2533,6 @@ components:
           description: vDC uuid
           example: 1bb33b06-8a3b-4a2c-a077-d4771794cf3c
       description: vDC list
-      example:
-        vdc_name: vdc01
-        vdc_uuid: 1bb33b06-8a3b-4a2c-a077-d4771794cf3c
     edgeGatewayNetworks:
       type: array
       description: List of edge gateway network configuration.
