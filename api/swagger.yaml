@@ -1022,6 +1022,19 @@ paths:
                 items:
                   $ref: '#/components/schemas/edgeGateway'
                 x-content-type: application/json;version=35.2
+              example:
+                - ownerType: vdc
+                  edgeId: cc1f35c2-90a2-48d1-9359-62794faf44ad
+                  ownerName: myVDC01
+                  edgeName: edgeName
+                  tier0VrfId: prvrf01iocb0000001allsp01
+                  description: Edge Gateway
+                - ownerType: vdc-group
+                  edgeId: 485dfb22-a8e4-47c8-a73a-97c0e68e7668
+                  ownerName: myVDC02
+                  edgeName: edgeNameG
+                  tier0VrfId: prvrf01iocb0000002allsp02
+                  description: Edge Gateway
         "400":
           description: Bad Request
           content:
@@ -1091,6 +1104,25 @@ paths:
             application/json;version=35.2:
               schema:
                 $ref: '#/components/schemas/edgeGateway'
+              examples:
+                vdc:
+                  summary: vdc edge gateway
+                  value:
+                    ownerType: vdc
+                    edgeId: cc1f35c2-90a2-48d1-9359-62794faf44ad
+                    ownerName: myVDC01
+                    edgeName: edgeName
+                    tier0VrfId: prvrf01iocb0000001allsp01
+                    description: Edge Gateway
+                vdc-group:
+                  summary: vdc-group edge gateway
+                  value:
+                    ownerType: vdc-group
+                    edgeId: 485dfb22-a8e4-47c8-a73a-97c0e68e7668
+                    ownerName: myVDC02
+                    edgeName: edgeNameG
+                    tier0VrfId: prvrf01iocb0000002allsp02
+                    description: Edge Gateway
         "400":
           description: Bad Request
           content:
@@ -2484,13 +2516,6 @@ components:
         description:
           type: string
       description: Edge Gateway (NSX-T Tier-1 Gateway)
-      example:
-        ownerType: vdc
-        edgeId: cc1f35c2-90a2-48d1-9359-62794faf44ad
-        ownerName: myVDC01
-        edgeName: edgeName
-        tier0VrfId: prvrf01iocb0000001allsp01
-        description: description
     vDCList:
       type: object
       properties:
