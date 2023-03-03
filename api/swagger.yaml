@@ -3,6 +3,7 @@ info:
   title: Cloud Avenue API
   description: |
     Cloud Avenue API allows you to create some ressources on vCloud Director.
+    
     ## Authentication
     In order to authenticate to this API, you must first authenticate through vCloudDirector API using
     **POST https://{{api_host}}/cloudapi/1.0.0/sessions**. Then use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from
@@ -1203,6 +1204,90 @@ paths:
       x-compatibility:
       - NGP
       - NGP_API_FOR_CUSTOMER
+  /api/customers/v2.0/edges/{edge-id}/load_balancing:
+    get:
+      x-compatibility:
+        - NGP
+        - NGP_API_FOR_CUSTOMER
+      summary: Get Load Balancing Configuration on Edge Gateway
+      description: Retrieve the configuration of edge gateway network
+      operationId: getEdgeLoadBalancing
+      tags:
+        - Edge Gateways
+      security:
+        - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      parameters:
+        - in: path
+          name: edge-id
+          required: true
+          schema:
+            type: string
+          example: "cc1f35c2-90a2-48d1-9359-62794faf44ad"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: "#/components/schemas/edgeGatewayLoadBalancing"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "406":
+          $ref: "#/components/responses/NotAcceptable"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "500":
+          $ref: "#/components/responses/InternalError"
+    put:
+      x-compatibility:
+        - NGP
+        - NGP_API_FOR_CUSTOMER
+      summary: Modify Edge Gateway Load Balancing Configuration
+      description: Modification of the configuration of edge gateway load balancing
+      operationId: updateEdgeLoadBalancing
+      tags:
+        - Edge Gateways
+      security:
+        - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      parameters:
+        - in: path
+          name: edge-id
+          required: true
+          schema:
+            type: string
+          example: "cc1f35c2-90a2-48d1-9359-62794faf44ad"
+      requestBody:
+        description: new edge gateway subnets configuration
+        required: true
+        content:
+          application/json;version=35.2:
+            schema:
+              $ref: "#/components/schemas/edgeGatewayLoadBalancing"
+      responses:
+        "201":
+          description: Request for edge gateway subnets configuration created
+          $ref : "#/components/responses/JobCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "406":
+          $ref: "#/components/responses/NotAcceptable"
+        "409":
+          $ref: "#/components/responses/Conflict"
+        "500":
+          $ref: "#/components/responses/InternalError"
+
   /api/customers/v2.0/edges/{edge-id}/networks:
     get:
       tags:
@@ -2496,6 +2581,15 @@ components:
       items:
         $ref: '#/components/schemas/edgeGatewayNetworkGet'
       x-schema-name: edgeGatewayNetworks
+    edgeGatewayLoadBalancing:
+      description: "Edge Gateway Load Balancing configuration."
+      type: object
+      properties:
+        enabled:
+          type: "boolean"
+          example: True
+      example:
+        enabled: True
     edgeGatewayNetworkGet:
       required:
       - networkType
