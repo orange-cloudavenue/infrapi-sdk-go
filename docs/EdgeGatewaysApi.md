@@ -8,8 +8,10 @@ Method | HTTP request | Description
 [**CreateVdcGroupEdge**](EdgeGatewaysApi.md#CreateVdcGroupEdge) | **Post** /api/customers/v2.0/vdc-groups/{vdc-group-name}/edges | Create one Edge gateway in vDC group
 [**DeleteEdge**](EdgeGatewaysApi.md#DeleteEdge) | **Delete** /api/customers/v2.0/edges/{edge-id} | Remove Edge Gateway
 [**GetEdgeById**](EdgeGatewaysApi.md#GetEdgeById) | **Get** /api/customers/v2.0/edges/{edge-id} | Get Edge gateway details
+[**GetEdgeLoadBalancing**](EdgeGatewaysApi.md#GetEdgeLoadBalancing) | **Get** /api/customers/v2.0/edges/{edge-id}/load_balancing | Get Load Balancing Configuration on Edge Gateway
 [**GetEdgeNetworks**](EdgeGatewaysApi.md#GetEdgeNetworks) | **Get** /api/customers/v2.0/edges/{edge-id}/networks | Get edge gateway network configuration
 [**GetEdges**](EdgeGatewaysApi.md#GetEdges) | **Get** /api/customers/v2.0/edges | List edge gateway of an organization
+[**UpdateEdgeLoadBalancing**](EdgeGatewaysApi.md#UpdateEdgeLoadBalancing) | **Put** /api/customers/v2.0/edges/{edge-id}/load_balancing | Modify Edge Gateway Load Balancing Configuration
 
 # **CreateVdcEdge**
 > Jobcreated CreateVdcEdge(ctx, body, vdcName)
@@ -121,6 +123,34 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **GetEdgeLoadBalancing**
+> EdgeGatewayLoadBalancing GetEdgeLoadBalancing(ctx, edgeId)
+Get Load Balancing Configuration on Edge Gateway
+
+Retrieve the configuration of edge gateway network
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **edgeId** | **string**|  | 
+
+### Return type
+
+[**EdgeGatewayLoadBalancing**](edgeGatewayLoadBalancing.md)
+
+### Authorization
+
+[X-VMWARE-VCLOUD-ACCESS-TOKEN](../README.md#X-VMWARE-VCLOUD-ACCESS-TOKEN)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json;version=35.2
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **GetEdgeNetworks**
 > []EdgeGatewayNetworkGet GetEdgeNetworks(ctx, edgeId)
 Get edge gateway network configuration
@@ -167,6 +197,35 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json;version=35.2
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **UpdateEdgeLoadBalancing**
+> Jobcreated UpdateEdgeLoadBalancing(ctx, body, edgeId)
+Modify Edge Gateway Load Balancing Configuration
+
+Modification of the configuration of edge gateway load balancing
+
+### Required Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+  **body** | [**EdgeGatewayLoadBalancing**](EdgeGatewayLoadBalancing.md)| new edge gateway subnets configuration | 
+  **edgeId** | **string**|  | 
+
+### Return type
+
+[**Jobcreated**](jobcreated.md)
+
+### Authorization
+
+[X-VMWARE-VCLOUD-ACCESS-TOKEN](../README.md#X-VMWARE-VCLOUD-ACCESS-TOKEN)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json;version=35.2
  - **Accept**: application/json;version=35.2
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
