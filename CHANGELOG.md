@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.1](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.1.0...v0.1.1) (2023-03-03)
+
+
+### Features
+
+* Add Edge LB endpoints ([9e8e33f](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/commit/9e8e33fdd0443e7ed84e63166353348c74bddd44))
+
+
+### Miscellaneous
+
+* **main:** Update Cloud Avenue SDK ([68a0afa](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/commit/68a0afa1ccefbe03980e9254e01cfafffbeb4e72))
+
 ## [0.1.0](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.0.3...v0.1.0) (2023-02-13)
 
 
