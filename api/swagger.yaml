@@ -3,7 +3,7 @@ info:
   title: Cloud Avenue API
   description: |
     Cloud Avenue API allows you to create some ressources on vCloud Director.
-    
+
     ## Authentication
     In order to authenticate to this API, you must first authenticate through vCloudDirector API using
     **POST https://{{api_host}}/cloudapi/1.0.0/sessions**. Then use _X-VMWARE-VCLOUD-ACCESS-TOKEN_ from
@@ -1206,88 +1206,158 @@ paths:
       - NGP_API_FOR_CUSTOMER
   /api/customers/v2.0/edges/{edge-id}/load_balancing:
     get:
-      x-compatibility:
-        - NGP
-        - NGP_API_FOR_CUSTOMER
+      tags:
+      - Edge Gateways
       summary: Get Load Balancing Configuration on Edge Gateway
       description: Retrieve the configuration of edge gateway network
       operationId: getEdgeLoadBalancing
-      tags:
-        - Edge Gateways
-      security:
-        - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
       parameters:
-        - in: path
-          name: edge-id
-          required: true
-          schema:
-            type: string
-          example: "cc1f35c2-90a2-48d1-9359-62794faf44ad"
+      - name: edge-id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: cc1f35c2-90a2-48d1-9359-62794faf44ad
       responses:
         "200":
           description: Successful response
           content:
             application/json;version=35.2:
               schema:
-                $ref: "#/components/schemas/edgeGatewayLoadBalancing"
+                $ref: '#/components/schemas/edgeGatewayLoadBalancing'
         "400":
-          $ref: "#/components/responses/BadRequest"
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "403":
-          $ref: "#/components/responses/Forbidden"
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "404":
-          $ref: "#/components/responses/NotFound"
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "406":
-          $ref: "#/components/responses/NotAcceptable"
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "409":
-          $ref: "#/components/responses/Conflict"
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "500":
-          $ref: "#/components/responses/InternalError"
-    put:
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
       x-compatibility:
-        - NGP
-        - NGP_API_FOR_CUSTOMER
+      - NGP
+      - NGP_API_FOR_CUSTOMER
+    put:
+      tags:
+      - Edge Gateways
       summary: Modify Edge Gateway Load Balancing Configuration
       description: Modification of the configuration of edge gateway load balancing
       operationId: updateEdgeLoadBalancing
-      tags:
-        - Edge Gateways
-      security:
-        - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
       parameters:
-        - in: path
-          name: edge-id
-          required: true
-          schema:
-            type: string
-          example: "cc1f35c2-90a2-48d1-9359-62794faf44ad"
+      - name: edge-id
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+        example: cc1f35c2-90a2-48d1-9359-62794faf44ad
       requestBody:
         description: new edge gateway subnets configuration
-        required: true
         content:
           application/json;version=35.2:
             schema:
-              $ref: "#/components/schemas/edgeGatewayLoadBalancing"
+              $ref: '#/components/schemas/edgeGatewayLoadBalancing'
+        required: true
       responses:
         "201":
-          description: Request for edge gateway subnets configuration created
-          $ref : "#/components/responses/JobCreated"
+          description: Job created
+          headers:
+            X-Automation-Job-Id:
+              description: Job-Id used in jobs management requests.
+              style: simple
+              explode: false
+              schema:
+                type: string
+                format: uuid
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/jobcreated'
         "400":
-          $ref: "#/components/responses/BadRequest"
+          description: Bad Request
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "401":
-          $ref: "#/components/responses/Unauthorized"
+          description: Unauthorized
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "403":
-          $ref: "#/components/responses/Forbidden"
+          description: Forbidden
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "404":
-          $ref: "#/components/responses/NotFound"
+          description: Not Found
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "406":
-          $ref: "#/components/responses/NotAcceptable"
+          description: Not Acceptable
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "409":
-          $ref: "#/components/responses/Conflict"
+          description: There is an other job pending for this organization
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
         "500":
-          $ref: "#/components/responses/InternalError"
-
+          description: Internal Server Error
+          content:
+            application/json;version=35.2:
+              schema:
+                $ref: '#/components/schemas/apiError'
+      security:
+      - X-VMWARE-VCLOUD-ACCESS-TOKEN: []
+      x-compatibility:
+      - NGP
+      - NGP_API_FOR_CUSTOMER
   /api/customers/v2.0/edges/{edge-id}/networks:
     get:
       tags:
@@ -2582,14 +2652,14 @@ components:
         $ref: '#/components/schemas/edgeGatewayNetworkGet'
       x-schema-name: edgeGatewayNetworks
     edgeGatewayLoadBalancing:
-      description: "Edge Gateway Load Balancing configuration."
       type: object
       properties:
         enabled:
-          type: "boolean"
-          example: True
+          type: boolean
+          example: true
+      description: Edge Gateway Load Balancing configuration.
       example:
-        enabled: True
+        enabled: true
     edgeGatewayNetworkGet:
       required:
       - networkType

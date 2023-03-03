@@ -8,13 +8,7 @@
  */
 package cloudavenue
 
-// Edge Gateway (NSX-T Tier-1 Gateway)
-type EdgeGateway struct {
-	// Identifier of Tier-0 VRF to connect the Edge Gateway
-	Tier0VrfId string `json:"tier0VrfId,omitempty"`
-	EdgeId string `json:"edgeId,omitempty"`
-	EdgeName string `json:"edgeName,omitempty"`
-	OwnerType string `json:"ownerType,omitempty"`
-	OwnerName string `json:"ownerName,omitempty"`
-	Description string `json:"description,omitempty"`
+// Edge Gateway Load Balancing configuration.
+type EdgeGatewayLoadBalancing struct {
+	Enabled bool `json:"enabled,omitempty"`
 }
