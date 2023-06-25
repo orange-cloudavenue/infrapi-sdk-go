@@ -5,7 +5,7 @@ All URIs are relative to *https://console1.cloudavenue.orange-business.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreatePublicIP**](PublicIPApi.md#CreatePublicIP) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
-[**DeletePublicIP**](PublicIPApi.md#DeletePublicIP) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
+[**DeletePublicIP**](PublicIPApi.md#DeletePublicIP) | **Delete** /api/customers/v1.0/ip/{public-ip}/ | Remove all configuration related to a public IP address and free IP
 [**GetPublicIPs**](PublicIPApi.md#GetPublicIPs) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
 
 # **CreatePublicIP**

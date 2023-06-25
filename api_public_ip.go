@@ -213,7 +213,7 @@ func (a *PublicIPApiService) DeletePublicIP(ctx context.Context, publicIp string
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/api/customers/v1.0/ip/{public-ip}"
+	localVarPath := a.client.cfg.BasePath + "/api/customers/v1.0/ip/{public-ip}/"
 	localVarPath = strings.Replace(localVarPath, "{"+"public-ip"+"}", fmt.Sprintf("%v", publicIp), -1)
 
 	localVarHeaderParams := make(map[string]string)
