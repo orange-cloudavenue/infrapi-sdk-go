@@ -462,7 +462,7 @@ paths:
       - NUP_API_FOR_CUSTOMER
       - NGP
       - NGP_API_FOR_CUSTOMER
-  /api/customers/v1.0/ip/{public-ip}:
+  /api/customers/v1.0/ip/{public-ip}/:
     delete:
       tags:
       - Public IP
