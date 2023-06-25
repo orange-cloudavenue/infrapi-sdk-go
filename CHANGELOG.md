@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.2](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.1.1...v0.1.2) (2023-06-25)
+
+
+### Bug Fixes
+
+* delete public IP ([abf3def](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/commit/abf3defcc836613a35642a5d152739d97e8b5236))
+
+
+### Miscellaneous
+
+* **main:** Update Cloud Avenue SDK ([9437237](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/commit/9437237eff63cc7511d0eae5bf47cf85f46ffef9))
+
 ## [0.1.1](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.1.0...v0.1.1) (2023-03-03)
 
 
