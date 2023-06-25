@@ -32,7 +32,7 @@ Class | Method | HTTP request | Description
 *EdgeGatewaysApi* | [**UpdateEdgeLoadBalancing**](docs/EdgeGatewaysApi.md#updateedgeloadbalancing) | **Put** /api/customers/v2.0/edges/{edge-id}/load_balancing | Modify Edge Gateway Load Balancing Configuration
 *JobsApi* | [**GetJobById**](docs/JobsApi.md#getjobbyid) | **Get** /api/customers/v1.0/jobs/{Job-Id} | Returns a job status by ID.
 *PublicIPApi* | [**CreatePublicIP**](docs/PublicIPApi.md#createpublicip) | **Post** /api/customers/v1.0/ip | Request and configure a new public IP address
-*PublicIPApi* | [**DeletePublicIP**](docs/PublicIPApi.md#deletepublicip) | **Delete** /api/customers/v1.0/ip/{public-ip} | Remove all configuration related to a public IP address and free IP
+*PublicIPApi* | [**DeletePublicIP**](docs/PublicIPApi.md#deletepublicip) | **Delete** /api/customers/v1.0/ip/{public-ip}/ | Remove all configuration related to a public IP address and free IP
 *PublicIPApi* | [**GetPublicIPs**](docs/PublicIPApi.md#getpublicips) | **Get** /api/customers/v2.0/ip | Get Organization&#x27;s public IP addresses
 *Tier0Api* | [**GetTier0VrfByName**](docs/Tier0Api.md#gettier0vrfbyname) | **Get** /api/customers/v2.0/tier-0-vrfs/{tier0_name} | Get Tier-0 Details
 *Tier0Api* | [**GetTier0Vrfs**](docs/Tier0Api.md#gettier0vrfs) | **Get** /api/customers/v2.0/tier-0-vrfs | Get all Tier-0 Gateway
