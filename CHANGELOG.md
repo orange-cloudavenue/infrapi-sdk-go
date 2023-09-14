@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.1.2...v0.1.3) (2023-09-14)
+
+
+### Bug Fixes
+
+* vdcgroup attribute in vdc resource ([6e2b595](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/commit/6e2b595eb59a2a73f8e85d7d00c01929d46a228d))
+
 ## [0.1.2](https://github.com/orange-cloudavenue/cloudavenue-sdk-go/compare/v0.1.1...v0.1.2) (2023-06-25)
 
 
