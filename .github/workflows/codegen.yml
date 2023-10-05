@@ -6,6 +6,7 @@ on:
   push:
     paths:
       - "api/swagger.yaml"
+      - ".swagger-codegen/config.json"
     branches:
       - "main"
 
