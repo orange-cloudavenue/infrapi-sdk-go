@@ -1,4 +1,4 @@
-module github.com/orange-cloudavenue/cloudavenue-sdk-go
+module github.com/orange-cloudavenue/infrapi-sdk-go
 
 go 1.19
 
